@@ -3,6 +3,7 @@ package com.raul.mongobank.security;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -77,7 +78,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		objeto.addProperty("username", user.getUsername());
 		objeto.addProperty("rol", roles.toArray().toString());
 		objeto.addProperty(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
-		objeto.addProperty("expiration", expiration_date.toString());
+		objeto.addProperty("expiration", expiration_date.toInstant().atZone(ZoneId.of("Europe/Paris")).toString());
 		body.print(objeto);
 		body.flush();
 		body.close();
