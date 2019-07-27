@@ -155,7 +155,7 @@ public class CuentasController {
 
 	}
 	
-	@Secured({"ROLE_USER, ROLE_ADMIN"})
+	@Secured("ROLE_USER")
 	@GetMapping(path = "/usuarios/{id_usuario}/cuentas/{id_cuenta}/transacciones")
 	public ResponseEntity<List<Transaccion>> findAllTransaccionesFromCuenta(@PathVariable(name="id_usuario") String id_usuario,
 			@PathVariable(name="id_cuenta") String id_cuenta) {
