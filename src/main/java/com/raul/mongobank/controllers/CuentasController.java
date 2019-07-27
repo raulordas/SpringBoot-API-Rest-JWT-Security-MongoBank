@@ -130,7 +130,7 @@ public class CuentasController {
 		return new ResponseEntity<List<Cuenta>>(serviceCuentas.findAllCuentas(), HttpStatus.OK);
 	}
 
-	@Secured({"ROLE_USER, ROLE_ADMIN"})
+	@Secured("ROLE_USER")
 	@GetMapping(path = "/usuarios/{id_usuario}/cuentas/")
 	public ResponseEntity<List<Cuenta>> findAllCuentasFromUsuario(@PathVariable String id_usuario) {
 		String username = getAuth();
