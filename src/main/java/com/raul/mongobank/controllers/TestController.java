@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	private static Logger logger = LoggerFactory.getLogger(TestController.class);
 	
-	@Secured("ROLE_USER")
 	@GetMapping(path="/hola")
 	public void HelloWorld() {
 		logger.info("BIENVENIDO");
