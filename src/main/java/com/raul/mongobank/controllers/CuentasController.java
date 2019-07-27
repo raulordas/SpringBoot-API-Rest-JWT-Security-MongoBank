@@ -131,7 +131,7 @@ public class CuentasController {
 	}
 
 	@Secured("ROLE_USER")
-	@GetMapping(path = "/usuarios/{id_usuario}/cuentas/")
+	@GetMapping(path = "/usuarios/{id_usuario}/cuentas")
 	public ResponseEntity<List<Cuenta>> findAllCuentasFromUsuario(@PathVariable String id_usuario) {
 		String username = getAuth();
 
