@@ -38,11 +38,6 @@ public class CuentasController {
 
 	@Autowired
 	private ServiceTransacciones serviceTransacciones;
-	
-	@GetMapping(path="/login")
-	public void login() {
-		
-	}
 
 	@Secured("ROLE_ADMIN")
 	@PostMapping(path = "/usuarios/{id_usuario}/cuentas")

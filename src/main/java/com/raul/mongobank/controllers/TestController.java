@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 	private static Logger logger = LoggerFactory.getLogger(TestController.class);
 	
+	@GetMapping(path="/login")
+	public void login() {
+		
+	}
+	
 	@GetMapping(path="/hola")
 	public void HelloWorld() {
 		logger.info("BIENVENIDO");
