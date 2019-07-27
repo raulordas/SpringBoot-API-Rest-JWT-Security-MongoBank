@@ -38,7 +38,7 @@ public class UsuariosController {
 	}
 	
 	@Secured("ROLE_USER")
-	@GetMapping()
+	@GetMapping(path="/you")
 	public ResponseEntity<Usuario> findUsuarioByOwnId(@RequestParam String usuario) {
 		
 		List<Usuario> users = serviceUsuarios.findUserByUsername(usuario);
