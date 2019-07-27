@@ -71,11 +71,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		expiration_date = new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION);
 		
 		
-		List<Usuario> usuarios = serviceUsuarios.findUserByUsername(user.getUsername());
-		
-		if (usuarios == null || usuarios.size() == 0) {
-			throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED);
-		}
+//		List<Usuario> usuarios = serviceUsuarios.findUserByUsername(user.getUsername());
+//		
+//		if (usuarios == null || usuarios.size() == 0) {
+//			throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED);
+//		}
 		
 		String token = Jwts.builder()
 	            .signWith(Keys.hmacShaKeyFor(SecurityConstants.JWT_SECRET.getBytes()), SignatureAlgorithm.HS512)
@@ -93,7 +93,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		PrintWriter body = response.getWriter();
 		JsonObject objeto = new JsonObject();
 		objeto.addProperty("username", user.getUsername());
-		objeto.addProperty("user_id", usuarios.get(0).getId());
+		//objeto.addProperty("user_id", usuarios.get(0).getId());
 		objeto.addProperty("rol", roles.toArray().toString());
 		objeto.addProperty(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
 		objeto.addProperty("expiration", expiration_date.toInstant().atZone(ZoneId.of("Europe/Paris")).toString());
