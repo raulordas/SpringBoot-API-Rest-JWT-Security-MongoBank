@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.google.gson.JsonObject;
@@ -32,6 +33,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+@Component
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private static Logger LOGGER = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 	private AuthenticationManager authManager;
@@ -71,11 +73,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		expiration_date = new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION);
 		
 		
-//		List<Usuario> usuarios = serviceUsuarios.findUserByUsername(user.getUsername());
-//		
-//		if (usuarios == null || usuarios.size() == 0) {
-//			throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED);
-//		}
+		List<Usuario> usuarios = serviceUsuarios.findUserByUsername(user.getUsername());
+		
+		if (usuarios == null || usuarios.size() == 0) {
+			throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED);
+		}
 		
 		String token = Jwts.builder()
 	            .signWith(Keys.hmacShaKeyFor(SecurityConstants.JWT_SECRET.getBytes()), SignatureAlgorithm.HS512)
@@ -93,7 +95,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		PrintWriter body = response.getWriter();
 		JsonObject objeto = new JsonObject();
 		objeto.addProperty("username", user.getUsername());
-		//objeto.addProperty("user_id", usuarios.get(0).getId());
+		objeto.addProperty("user_id", usuarios.get(0).getId());
 		objeto.addProperty("rol", roles.toArray().toString());
 		objeto.addProperty(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
 		objeto.addProperty("expiration", expiration_date.toInstant().atZone(ZoneId.of("Europe/Paris")).toString());
